@@ -3,11 +3,15 @@ package recursos;
 import java.util.List;
 
 import entidades.Disciplina;
+import entidades.Planner;
 import io.quarkus.panache.common.Sort;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
@@ -24,5 +28,27 @@ public class DisciplinaRecurso {
     @Transactional
     public void salvar(Disciplina disciplina){
         disciplina.persist();
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Transactional
+    public void excluir (@PathParam("id")Integer id) {
+        Disciplina disciplina = Disciplina.findById(id);
+
+        if (disciplina != null) {
+        disciplina.delete();
+        }
+    }
+
+    @PUT
+    @Transactional
+    @Path("{id}")
+    public void editar(@PathParam("id") Integer id, Disciplina disciplina) {
+        Disciplina disciplinaExistente = Disciplina.findById(id);
+        if (disciplinaExistente != null) {
+            disciplinaExistente.nome = disciplina.nome;
+            disciplinaExistente.professor = disciplina.professor;
+        }
     }
 }

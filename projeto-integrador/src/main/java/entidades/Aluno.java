@@ -1,5 +1,6 @@
 package entidades;
 
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,8 @@ public class Aluno extends PanacheEntityBase {
 
     @ManyToOne
     public Turma turma;
+    
+
 
 }
 
